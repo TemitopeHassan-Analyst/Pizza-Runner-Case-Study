@@ -140,11 +140,11 @@ VALUES
 | 9        | 2         | null                | null     | null         | Customer Cancellation   |
 | 10       | 1         | 2020-01-11 18:50:20 | 10km     | 10minutes    | null                    |
 
-Our course of action to clean the table:
+### Our course of action to clean the table:
 
 -- In pickup_time column, remove nulls and replace with blank space ' '.
 -- In distance column, remove "km" and nulls and replace with blank space ' '.
--- In duration column, remove "minutes", "minute" and nulls and replace with blank space ' '.
+--In duration column, remove "minutes", "minute" and nulls and replace with blank space ' '.
 -- In cancellation column, remove NULL and null and and replace with blank space ' '.
 
 ```
