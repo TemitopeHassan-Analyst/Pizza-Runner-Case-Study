@@ -493,3 +493,42 @@ Insight:
 - Runner 1 has 100% successful delivery.
 - Runner 2 has 75% successful delivery.
 - Runner 3 has 50% successful delivery
+## C. Ingredient Optimisation
+What are the standard ingredients for each pizza?
+```
+WITH toppings_cte AS (
+  SELECT 
+    pr.pizza_id,
+    TRIM(value) AS topping_id
+  FROM dbo.pizza_recipes AS pr
+  CROSS APPLY STRING_SPLIT(CAST(pr.toppings AS VARCHAR(100)), ',')
+)
+
+SELECT 
+  CAST(pn.pizza_name AS NVARCHAR(100)) AS pizza_name,
+  CAST(pt.topping_name AS NVARCHAR(100)) AS topping_name
+FROM toppings_cte t
+JOIN dbo.pizza_toppings AS pt
+  ON TRY_CAST(t.topping_id AS INT) = pt.topping_id
+JOIN dbo.pizza_names AS pn
+  ON t.pizza_id = pn.pizza_id
+ORDER BY 
+  CAST(pn.pizza_name AS NVARCHAR(100)), 
+  CAST(pt.topping_name AS NVARCHAR(100));
+```
+| pizza_name | topping_name |
+|------------|--------------|
+| Meatlovers | BBQ Sauce    |
+| Meatlovers | Bacon        |
+| Meatlovers | Beef         |
+| Meatlovers | Cheese       |
+| Meatlovers | Chicken      |
+| Meatlovers | Mushrooms    |
+| Meatlovers | Pepperoni    |
+| Meatlovers | Salami       |
+| Vegetarian | Cheese       |
+| Vegetarian | Mushrooms    |
+| Vegetarian | Onions       |
+| Vegetarian | Peppers      |
+| Vegetarian | Tomato Sauce |
+| Vegetarian | Tomatoes     |
