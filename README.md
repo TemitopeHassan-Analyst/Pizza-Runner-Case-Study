@@ -388,7 +388,7 @@ ORDER BY hour_of_day;
 Insight:
 - Highest volume of pizza ordered is at 13 (1:00 pm), 18 (6:00 pm) and 21 (9:00 pm).
 - Lowest volume of pizza ordered is at 11 (11:00 am), 19 (7:00 pm) and 23 (11:00 pm).
-## 10. What was the volume of orders for each day of the week?
+### 10. What was the volume of orders for each day of the week?
 ```
 SELECT 
   FORMAT(DATEADD(DAY, 2, order_time), 'dddd') AS day_of_week,
@@ -416,3 +416,22 @@ Insights:
 - There are 5 pizzas ordered on Friday and Monday.
 - There are 3 pizzas ordered on Saturday.
 - There is 1 pizza ordered on Sunday.
+## B. Runner and Customer Experience
+1. How many runners signed up for each 1 week period? (i.e. week starts 2021-01-01)
+```
+SELECT 
+  DATEPART(WEEK, registration_date) AS registration_week,
+  COUNT(runner_id) AS runner_signup
+FROM dbo.runners
+GROUP BY DATEPART(WEEK, registration_date)
+ORDER BY registration_date;
+```
+| registration_week | runner_signup |
+|-------------------|---------------|
+| 1                 | 2             |
+| 2                 | 1             |
+| 3                 | 1             |
+
+Insight:
+- In Week 1 of Jan 2021, 2 new runners signed up.
+- In Week 2 and 3 of Jan 2021, 1 new runner signed up.
