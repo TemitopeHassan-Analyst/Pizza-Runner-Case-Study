@@ -307,3 +307,39 @@ WITH pizza_count_cte AS
 | 3           |
 
 Insight: The maximum number of pizzas delivered in a single order is 3 pizzas.
+##3 7. For each customer, how many delivered pizzas had at least 1 change 
+-- and how many had no changes?
+```
+SELECT 
+  c.customer_id,
+  SUM(
+    CASE 
+      WHEN c.exclusions != '' OR c.extras != '' THEN 1
+      ELSE 0
+    END) AS at_least_1_change,
+  SUM(
+    CASE 
+      WHEN c.exclusions = '' AND c.extras = '' THEN 1 
+      ELSE 0
+    END) AS no_change
+FROM #customer_orders_temp AS c
+JOIN #runner_orders_temp AS r
+  ON c.order_id = r.order_id
+WHERE r.distance != '0'
+  AND r.distance IS NOT NULL
+  AND r.distance != ''
+  AND LOWER(r.distance) != 'null'
+GROUP BY c.customer_id
+ORDER BY c.customer_id;
+```
+| customer_id | at_least_1_change | no_change |
+|-------------|-------------------|-----------|
+| 101         | 0                 | 2         |
+| 102         | 0                 | 3         |
+| 103         | 3                 | 0         |
+| 104         | 2                 | 1         |
+| 105         | 1                 | 0         |
+
+Insight:
+- Customer 101 and 102 likes his/her pizzas per the original recipe.
+- Customers 103, 104, and 105 have their own preference for pizza topping and requested at least 1 change (extra or exclusion topping) on their pizza.
