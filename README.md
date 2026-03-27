@@ -216,12 +216,14 @@ Insight:
 10 unique orders were placed in total — meaning across the 14 pizza rows in the table, they belong to 10 distinct orders.
 
 ### 3. How many successful orders were delivered by each runner?
+```
 SELECT 
   runner_id, 
   COUNT(order_id) AS successful_orders
 FROM dbo.runner_orders
 WHERE distance != '0'
 GROUP BY runner_id;
+```
 
 | runner_id | successful_orders |
 |-----------|-------------------|
