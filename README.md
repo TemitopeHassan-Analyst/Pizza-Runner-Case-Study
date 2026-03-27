@@ -285,3 +285,25 @@ ORDER BY c.customer_id;
 - Customer 103 ordered 3 Meatlovers pizzas and 1 Vegetarian pizza.
 - Customer 104 ordered 3 Meatlovers pizza.
 - Customer 105 ordered 1 Vegetarian pizza.
+ ## 6. What was the maximum number of pizzas delivered in a single order?
+```
+WITH pizza_count_cte AS
+(
+  SELECT 
+    c.order_id, 
+    COUNT(c.pizza_id) AS pizza_per_order
+  FROM dbo.customer_orders AS c
+  JOIN dbo.runner_orders AS r
+    ON c.order_id = r.order_id
+  WHERE r.distance != '0'
+    AND r.distance IS NOT NULL
+    AND r.distance != ''
+    AND LOWER(r.distance) != 'null'
+  GROUP BY c.order_id
+)
+```
+| pizza_count |
+|-------------|
+| 3           |
+
+Insight: The maximum number of pizzas delivered in a single order is 3 pizzas.
