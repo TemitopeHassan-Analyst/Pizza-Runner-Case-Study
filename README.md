@@ -194,3 +194,14 @@ SELECT * FROM #runner_orders_temp;
 | 8        | 2         | 2020-01-10 00:15:02 | 23.4     | 15       |                         |
 | 9        | 2         |                     |          |          | Customer Cancellation   |
 | 10       | 1         | 2020-01-11 18:50:20 | 10       | 10       |                         |
+## A. Pizza Metrics
+1. How many pizzas were ordered?
+```
+SELECT COUNT(*) AS pizza_order_count
+FROM customer_orders_temp;
+``
+| pizza_order_count |
+|-------------------|
+| 14                |
+Insight:
+14 pizzas were ordered across in total across all orders
