@@ -1,4 +1,4 @@
-# Pizza-Runner-Case-Study 2
+## Case-Study 2- Pizza Runner
 ## Business Problem
 Danny is expanding his new Pizza Empire and at the same time, he wants to Uberize it, so Pizza Runner was launched!
 
