@@ -58,7 +58,28 @@ VALUES
 | 10       | 104         | 1        | 2, 6       | 1, 4   | 2020-01-11 18:34:49 |
 
 ### Remove null values in exclusions and extras columns and replace with blank space
-This is how the clean customers_orders_temp table looks like and we will use this table to run all our queries.' '.
+```
+--Cleaning the customer_orders table
+SELECT 
+  order_id, 
+  customer_id, 
+  pizza_id, 
+  CASE
+    WHEN exclusions IS NULL OR exclusions = 'null' OR exclusions = '' THEN ''
+    ELSE exclusions
+  END AS exclusions,
+  CASE
+    WHEN extras IS NULL OR extras = 'null' OR extras = '' THEN ''
+    ELSE extras
+  END AS extras,
+  order_time
+INTO #customer_orders_temp
+FROM customer_orders;
+
+-- Verify
+SELECT * FROM #customer_orders_temp;
+```
+This is how the clean customers_orders table looks like and we will use this table to run all our queries.' '.
 | order_id | customer_id | pizza_id | exclusions | extras | order_time          |
 |----------|-------------|----------|------------|--------|---------------------|
 | 1        | 101         | 1        |            |        | 2020-01-01 18:05:02 |
