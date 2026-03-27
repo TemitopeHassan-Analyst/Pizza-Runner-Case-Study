@@ -388,3 +388,31 @@ ORDER BY hour_of_day;
 Insight:
 - Highest volume of pizza ordered is at 13 (1:00 pm), 18 (6:00 pm) and 21 (9:00 pm).
 - Lowest volume of pizza ordered is at 11 (11:00 am), 19 (7:00 pm) and 23 (11:00 pm).
+## 10. What was the volume of orders for each day of the week?
+```
+SELECT 
+  FORMAT(DATEADD(DAY, 2, order_time), 'dddd') AS day_of_week,
+  COUNT(order_id) AS total_pizzas_ordered
+FROM #customer_orders_temp
+GROUP BY FORMAT(DATEADD(DAY, 2, order_time), 'dddd')
+ORDER BY 
+  CASE FORMAT(DATEADD(DAY, 2, order_time), 'dddd')
+    WHEN 'Monday'    THEN 1
+    WHEN 'Tuesday'   THEN 2
+    WHEN 'Wednesday' THEN 3
+    WHEN 'Thursday'  THEN 4
+    WHEN 'Friday'    THEN 5
+    WHEN 'Saturday'  THEN 6
+    WHEN 'Sunday'    THEN 7
+  END;
+```
+| day_of_week | total_pizzas_ordered |
+|-------------|----------------------|
+| Monday      | 5                    |
+| Friday      | 5                    |
+| Saturday    | 3                    |
+| Sunday      | 1                    |
+Insights:
+- There are 5 pizzas ordered on Friday and Monday.
+- There are 3 pizzas ordered on Saturday.
+- There is 1 pizza ordered on Sunday.
