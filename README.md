@@ -206,3 +206,9 @@ FROM dbo.customer_orders;
 
 Insight:
 14 pizzas were ordered in total across all orders
+## 2. How many unique customer orders were made?
+| unique_order_count |
+|--------------------|
+| 10                 |
+Insight:
+10 unique orders were placed in total — meaning across the 14 pizza rows in the table, they belong to 10 distinct orders.
