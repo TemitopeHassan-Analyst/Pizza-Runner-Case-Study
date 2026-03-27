@@ -435,3 +435,35 @@ ORDER BY registration_date;
 Insight:
 - In Week 1 of Jan 2021, 2 new runners signed up.
 - In Week 2 and 3 of Jan 2021, 1 new runner signed up.
+
+-- 12. What was the average time in minutes it took for each runner 
+-- to arrive at Pizza Runner HQ to pickup the order?
+### 2. What was the average time in minutes it took for each runner to arrive at the Pizza Runner HQ to pickup the order?
+```
+WITH time_taken_cte AS
+(
+  SELECT 
+    c.order_id, 
+    c.order_time,
+    CAST(r.pickup_time AS DATETIME) AS pickup_time, 
+    DATEDIFF(MINUTE, c.order_time, CAST(r.pickup_time AS DATETIME)) AS pickup_minutes
+  FROM #customer_orders_temp AS c
+  JOIN #runner_orders_temp AS r
+    ON c.order_id = r.order_id
+  WHERE r.distance != ''
+    AND r.distance != '0'
+    AND r.distance IS NOT NULL
+    AND LOWER(r.distance) != 'null'
+  GROUP BY c.order_id, c.order_time, r.pickup_time
+)
+
+SELECT 
+  AVG(pickup_minutes) AS avg_pickup_minutes
+FROM time_taken_cte
+WHERE pickup_minutes > 1;
+```
+| avg_pickup_minutes |
+|--------------------|
+| 16                 |
+Insight:
+The average time taken in minutes by runners to arrive at Pizza Runner HQ to pick up the order is 16 minutes.
