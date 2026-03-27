@@ -343,3 +343,27 @@ ORDER BY c.customer_id;
 Insight:
 - Customer 101 and 102 likes his/her pizzas per the original recipe.
 - Customers 103, 104, and 105 have their own preference for pizza topping and requested at least 1 change (extra or exclusion topping) on their pizza.
+### -8. How many pizzas were delivered that had both exclusions and extras?
+```
+SELECT  
+  SUM(
+    CASE 
+      WHEN c.exclusions != '' AND c.extras != '' THEN 1
+      ELSE 0
+    END) AS pizza_count_w_exclusions_extras
+FROM #customer_orders_temp AS c
+JOIN #runner_orders_temp AS r
+  ON c.order_id = r.order_id
+WHERE r.distance != ''
+  AND r.distance != '0'
+  AND r.distance IS NOT NULL
+  AND LOWER(r.distance) != 'null'
+  AND c.exclusions != ''
+  AND c.extras != '';
+```
+| pizza_count_w_exclusions_extras |
+|---------------------------------|
+| 1                               |
+
+Insight:
+Only 1 pizza was delivered with both extra and exclusion toppings. 
