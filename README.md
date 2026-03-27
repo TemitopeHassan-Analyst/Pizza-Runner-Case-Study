@@ -142,10 +142,10 @@ VALUES
 
 ### Our course of action to clean the table:
 
--- In pickup_time column, remove nulls and replace with blank space ' '.
--- In distance column, remove "km" and nulls and replace with blank space ' '.
---In duration column, remove "minutes", "minute" and nulls and replace with blank space ' '.
--- In cancellation column, remove NULL and null and and replace with blank space ' '.
+- In pickup_time column, remove nulls and replace with blank space ' '.
+- In distance column, remove "km" and nulls and replace with blank space ' '.
+- In duration column, remove "minutes", "minute" and nulls and replace with blank space ' '.
+- In cancellation column, remove NULL and null and and replace with blank space ' '.
 
 ```
 --Cleaning the runnerS_orders table
