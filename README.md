@@ -465,5 +465,6 @@ WHERE pickup_minutes > 1;
 | avg_pickup_minutes |
 |--------------------|
 | 16                 |
+
 Insight:
 The average time taken in minutes by runners to arrive at Pizza Runner HQ to pick up the order is 16 minutes.
