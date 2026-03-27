@@ -255,4 +255,33 @@ GROUP BY p.pizza_name;
 | Meatlovers | 9                     |
 | Vegetarian | 3                     |
 
-Insight:There are 9 delivered Meatlovers pizzas and 3 Vegetarian pizzas.
+Insight: There are 9 delivered Meatlovers pizzas and 3 Vegetarian pizzas.
+
+## 5. How many Vegetarian and Meatlovers were ordered by each customer?
+```
+SELECT 
+  c.customer_id, 
+  p.pizza_name, 
+  COUNT(p.pizza_name) AS order_count
+FROM dbo.customer_orders AS c
+JOIN pizza_names AS p
+  ON c.pizza_id= p.pizza_id
+GROUP BY c.customer_id, p.pizza_name
+ORDER BY c.customer_id;
+```
+| customer_id | pizza_name | order_count |
+|-------------|------------|-------------|
+| 101         | Meatlovers | 2           |
+| 101         | Vegetarian | 1           |
+| 102         | Meatlovers | 2           |
+| 102         | Vegetarian | 1           |
+| 103         | Meatlovers | 3           |
+| 103         | Vegetarian | 1           |
+| 104         | Meatlovers | 3           |
+| 105         | Vegetarian | 1           |
+
+- Customer 101 ordered 2 Meatlovers pizzas and 1 Vegetarian pizza.
+- Customer 102 ordered 2 Meatlovers pizzas and 1 Vegetarian pizza.
+- Customer 103 ordered 3 Meatlovers pizzas and 1 Vegetarian pizza.
+- Customer 104 ordered 3 Meatlovers pizza.
+- Customer 105 ordered 1 Vegetarian pizza.
