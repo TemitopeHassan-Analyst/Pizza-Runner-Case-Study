@@ -468,3 +468,28 @@ WHERE pickup_minutes > 1;
 
 Insight:
 The average time taken in minutes by runners to arrive at Pizza Runner HQ to pick up the order is 16 minutes.
+## 3. What is the successful delivery percentage for each runner?
+```
+SELECT 
+  runner_id, 
+  ROUND(100 * SUM(
+    CASE 
+      WHEN distance = '' OR distance = '0' 
+        OR distance IS NULL 
+        OR LOWER(distance) = 'null' THEN 0
+      ELSE 1 
+    END) / COUNT(*), 0) AS success_perc
+FROM #runner_orders_temp
+GROUP BY runner_id
+ORDER BY runner_id;
+```
+| runner_id | success_perc |
+|-----------|--------------|
+| 1         | 100          |
+| 2         | 75           |
+| 3         | 50           |
+
+Insight:
+- Runner 1 has 100% successful delivery.
+- Runner 2 has 75% successful delivery.
+- Runner 3 has 50% successful delivery
