@@ -196,10 +196,10 @@ SELECT * FROM #runner_orders_temp;
 | 10       | 1         | 2020-01-11 18:50:20 | 10       | 10       |                         |
 ## A. Pizza Metrics
 1. How many pizzas were ordered?
-``
+```
 SELECT COUNT(*) AS pizza_order_count
 FROM dbo.customer_orders;
-``
+```
 | pizza_order_count |
 |-------------------|
 | 14                |
