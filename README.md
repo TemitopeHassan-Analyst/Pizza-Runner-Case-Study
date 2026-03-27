@@ -234,3 +234,25 @@ GROUP BY runner_id;
 - Runner 1 has 4 successful delivered orders.
 - Runner 2 has 3 successful delivered orders.
 - Runner 3 has 1 successful delivered order.
+## 4. How many of each type of pizza were delivered?
+```
+SELECT 
+  p.pizza_name, 
+  COUNT(c.pizza_id) AS delivered_pizza_count
+FROM dbo.customer_orders c
+JOIN dbo.runner_orders AS r
+  ON c.order_id = r.order_id
+JOIN pizza_names AS p
+  ON c.pizza_id = p.pizza_id
+WHERE r.distance != '0'
+  AND r.distance IS NOT NULL
+  AND r.distance != ''
+  AND LOWER(r.distance) != 'null'
+GROUP BY p.pizza_name;
+```
+| pizza_name | delivered_pizza_count |
+|------------|-----------------------|
+| Meatlovers | 9                     |
+| Vegetarian | 3                     |
+
+Insight:There are 9 delivered Meatlovers pizzas and 3 Vegetarian pizzas.
