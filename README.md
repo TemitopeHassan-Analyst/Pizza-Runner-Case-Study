@@ -367,3 +367,24 @@ WHERE r.distance != ''
 
 Insight:
 Only 1 pizza was delivered with both extra and exclusion toppings. 
+### 9. What was the total volume of pizzas ordered for each hour of the day?
+```
+SELECT 
+  DATEPART(HOUR, order_time) AS hour_of_day, 
+  COUNT(order_id) AS pizza_count
+FROM #customer_orders_temp
+GROUP BY DATEPART(HOUR, order_time)
+ORDER BY hour_of_day;
+```
+| hour_of_day | pizza_count |
+|-------------|-------------|
+| 11          | 1           |
+| 13          | 3           |
+| 18          | 3           |
+| 19          | 1           |
+| 21          | 3           |
+| 23          | 3           |
+
+Insight:
+- Highest volume of pizza ordered is at 13 (1:00 pm), 18 (6:00 pm) and 21 (9:00 pm).
+- Lowest volume of pizza ordered is at 11 (11:00 am), 19 (7:00 pm) and 23 (11:00 pm).
